@@ -1,13 +1,6 @@
-function calculateTotalPrice(order) {
-  let sum = 0;
-  for (const value of order) {
-    sum += value;
-  }
-  return sum;
-}
+function getExtremeScores(scores) {
+  return `{ best: ${Math.max(...scores)}, worst: ${Math.min(...scores)} }`
+};
 
-
-console.log(calculateTotalPrice([164, 48, 291]));
-console.log(calculateTotalPrice([164, 48, 291]));
-console.log(calculateTotalPrice([12, 85, 37, 4]));
-console.log(calculateTotalPrice([164, 48, 291]));
+console.log(getExtremeScores([89, 64, 42, 17, 93, 51, 26]));
+console.log({ best: 93, worst: 17 });
