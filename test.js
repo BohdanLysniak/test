@@ -1,51 +1,22 @@
+const postToAdd = {
+  title: "CRUD",
+  body: "CRUD is awesome!",
+};
 
-class User {
-  email;
+const options = {
+  method: "POST",
+  body: JSON.stringify(postToAdd),
+  headers: {
+    "Content-Type": "application/json; charset=UTF-8",
+  },
+};
 
-  constructor(email) {
-    this.email = email;
-  }
-
-  get email() {
-    return this.email;
-  }
-
-  set email(newEmail) {
-    this.email = newEmail;
-  }
-}
-class Admin extends User {
-  static role = {
-    BASIC: "basic",
-    SUPERUSER: "superuser",
-  };
-
-  constructor({ email, access }) {
-    super(email);
-    this.access = access;
-  }
-
-  blacklistedEmails = [];
-
-  blacklist(email) {
-    this.blacklistedEmails.push(email);
-  }
-
-  isBlacklisted(email) {
-  return  this.blacklistedEmails.includes(email);
-  }
-}
-
-const mango = new Admin({
-  email: "mango@mail.com",
-  access: Admin.role.SUPERUSER,
-});
-
-console.log(mango.email); // "mango@mail.com"
-console.log(mango.access); // "superuser"
-
-mango.blacklist("poly@mail.com");
-console.log(mango.blacklistedEmails); // ["poly@mail.com"]
-console.log(mango.isBlacklisted("mango@mail.com")); // false
-console.log(mango.isBlacklisted("poly@mail.com")); // true
-
+fetch("<https://jsonplaceholder.typicode.com/posts>", options)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  })
+  .then(post => console.log(post))
+  .catch(error => console.log(error));
